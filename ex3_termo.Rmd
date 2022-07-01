@@ -1,0 +1,121 @@
+---
+title: Atividade 3 - Estimativas de espessura da camada, escala de altura, densidade
+  e pressão atmosérica.
+author: "Gabriel Welter Hartmann"
+date: '2022-06-30'
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r, warning=FALSE, include=FALSE}
+source("resolucao_script.R", encoding = 'UTF-8')
+```
+
+> O script com as resoluções pode ser ecnontrado [aqui](https://raw.githubusercontent.com/Gabriel-WH/ex3_termo/main/resolucao_script.R)
+
+**1. Seguindo os mesmos passos descritos na atividade anterior, referente a obtenção de dados atmosféricos de radiossondagens, escolha três localidades no mundo para obter os perfis atmosféricos na forma “Text: list”: uma localidade em região tropical, outra em latitudes médias, e outra em região polar. Procure escolher estações ao nível do mar e sondagens realizadas na mesma estação do ano; mas não precisam ser do mesmo dia ou mês. Para cada uma das três sondagens realize as tarefas abaixo:**
+
+## As três localidades escolhidas foram:
+
+1. Aeroporto Internacional Grantley Adams, em Christ Church, na Ilha de Barbados. **Lat = 13.07º; Alt = 57.0 m**
+
+2. Heuksando, uma ilha no Mar Amarelo localizada cerca de 97,2 km da costa sudoeste de Mokpo, Jeolla do Sul, Coreia do Sul. **Lat = 34.68; Alt = 69.0 m**
+
+3. Ny-Alesund Ii, uma povoação mineira de carvão, situada em King's Bay em Spitsbergen, ilha pertencente ao arquipélago ártico de Svalbard, na Noruega. **Lat = 78.91; Alt = 8.0 m**
+
+-- Para as três localidades a data da sondagem foi a mesma: 28/04/2022 às 12h UTC.
+
+(a) Calcule a espessura (Dz) da camada atmosférica entre a superfície e o nível de 500hPa (ou o nível mais próximo de 500 hPa, caso 500 hPa esteja ausente na radiossondagem) utilizando a equação (8) dada abaixo:
+
+$$\Delta z = - \frac{R_d \: \overline{T}}{g} \ln \left( \frac{p_s}{p_i} \right)$$
+
+onde $R_d$ é a constante do gás para o ar seco, igual a 287 J kg$^{-1}$ K$^{-1}$ ; $\overline {T}$ é a temperatura média do ar, em Kelvin, na camada entre a superfície e 500hPa; $p_s$ e $p_i$ são respectivamente os valores da pressão atmosférica na extremidade superior e inferior da camada (neste caso $p_s$ = 500hPa). Determine   utilizando os dados que você selecionou; isto é, faça uma média simples de todos os valores de temperatura do ar reportados entre a superfície e 500hPa (cuidado, trabalhe com Kelvin, não Celsius). Utilize um valor constante para a aceleração g.
+
+Utilizando g como 9,81 m/s²
+
+```{r}
+esp_est1 # em metros
+esp_est2 # em metros
+esp_est3 # em metros
+```
+
+(b) Como que a espessura estimada com a equação acima se compara com a espessura real da camada entre a superfície e 500hPa? A diferença percentual é de quanto? (Evidentemente, a espessura real você calcula pela diferença das alturas reportadas na radiossondagem entre os dois níveis analisados).
+
+```{r}
+esp_real1 # em metros
+esp_real2 # em metros
+esp_real3 # em metros
+
+diff_pct1 # porcentagem
+diff_pct2 # porcentagem
+diff_pct3 # porcentagem
+```
+
+Vemos que para a primeira localidade a espessura estimada foi levemente menor que a real. Enquanto que para as outras duas a espessura estimada foi levemente maior que a real.
+
+(c) Qual é o valor da escala de altura H que você encontrou para a sondagem? (Vide a equação (7) de nossas notas de aula).
+
+Usando a Escala de altura H como:
+
+$$H = \frac{R_d \: \overline{T}}{g}$$
+
+```{r}
+H1    # metros
+H2    # metros
+H3    # metros
+```
+
+(d) Utilizando a equação do estado para os gases ideais e o valor de $R_d$ fornecido acima, calcule a densidade do ar para alguns níveis atmosféricos da tua sondagem (um destes níveis deve ser, obrigatoriamente, a superfície).
+
+```{r}
+rho1_s    # kg/m³
+rho2_s    # kg/m³
+rho3_s    # kg/m³
+
+rho1_850    # kg/m³
+rho2_850    # kg/m³
+rho3_850    # kg/m³
+
+rho1_700    # kg/m³
+rho2_700    # kg/m³
+rho3_700    # kg/m³
+
+rho1_500    # kg/m³
+rho2_500    # kg/m³
+rho3_500    # kg/m³
+
+rho1_400    # kg/m³
+rho2_400    # kg/m³
+rho3_400    # kg/m³
+
+rho1_250    # kg/m³
+rho2_250    # kg/m³
+rho3_250    # kg/m³
+
+```
+
+(e) Como que as espessuras estimadas (ou observadas, tanto faz), as densidades do ar em superfície, e H variaram entre as localidades tropical, de latitudes médias, e polar?
+
+Percebe-se que quanto mais perto dos polos, menos espessas são as camadas de ar e mais denso é o ar nos mesmos níveis de pressão. Ou seja, perto dos trópicos as camadas de ar são mais espessas e o ar é menos denso, dado um determinado nível de pressão. E as latitudes médias apresentam uma condição intermediária entre esses extremos.
+
+**2. Utilizando seu software de preferência:**
+
+(a) Com os dados da Tabela fornecida [aqui](https://raw.githubusercontent.com/lhmet/dados-termo-ufsm/main/us-standard-atmosphere), produza um gráfico da pressão atmosférica variando com a altura desde a altitude zero km até a altitude de 12 km.
+
+```{r, echo=FALSE}
+plot(quest2_df[1:ind_alt_12km,1], quest2_df[1:ind_alt_12km,3], type = "l", lwd = 3, col = "blue", main = "Variação da pressão atmosférica com a altitude", xlab = "Altitude (Km)", ylab = "Pressão atmosférica (hPa)")
+
+```
+
+(b) Em seguida refaça este mesmo gráfico, mas agora usando a equação (6) que vimos em aula, $p_s = p_i  \; e^{\left( -\frac{g \: z}{R_d \: \overline{T}} \right)}$. Utilize a constante do gás para o ar seco, e a temperatura média na camada entre zero e 12 km calculada daquela mesma Tabela. (Na expressão acima temos “z” ao invés de “Dz” simplesmente porque partimos da altitude zero neste exercício). Os dois gráficos ficaram muito diferentes ou muito parecidos?
+
+```{r, echo = FALSE}
+plot(quest2_df[1:ind_alt_12km,1], quest2_df[1:ind_alt_12km,3], type = "l", lwd = 3, col = "blue", main = "Variação da pressão atmosférica com a altitude", xlab = "Altitude (Km)", ylab = "Pressão atmosférica (hPa)")
+lines(quest2_df[1:ind_alt_12km,1], pres_calc, type = "l", lwd = 3, col = "red")
+
+```
+
+A pressão estimada é a curva em vermelho, vemos que ela não fica muito diferente da real (em azul).
